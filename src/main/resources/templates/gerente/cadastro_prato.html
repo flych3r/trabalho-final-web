@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="br" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cadastrar Pratos</title>
+    <div th:replace="fragments/index :: head"></div>
+</head>
+<body>
+
+<div th:replace="fragments/index :: nav-gerente"></div>
+
+<div class="row">
+    <form action="/prato/salvar" class="col s12" enctype="multipart/form-data" method="post" th:object="${prato}">
+        <input th:field="*{idPrato}" type="hidden">
+        <input th:field="*{status}" th:value="1" type="hidden">
+        <div class="row">
+            <div class="input-field col s12">
+                <input class="validate" id="nome_prato" placeholder="Nome do Prato" required th:field="*{nome}"
+                       type="text">
+                <span class="red-text" th:if="${#fields.hasErrors('nome')}">Nome Inválido</span>
+                <label for="nome_prato">Nome</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input class="validate" id="desc_prato" placeholder="Descrição Prato" required
+                       th:field="*{descricao}" type="text">
+                <span class="red-text" th:if="${#fields.hasErrors('descricao')}">Descrição Inválida</span>
+                <label for="desc_prato">Descrição Prato</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input class="validate" id="preco_prato" min="0" pattern="^\d+(\.|\,)\d{2}$" placeholder="Preço Prato" required
+                       step="0.01"
+                       th:field="*{preco}" type="number" value="0">
+                <span class="red-text" th:if="${#fields.hasErrors('preco')}">Preço Inválido</span>
+                <label for="preco_prato">Preço Prato</label>
+            </div>
+        </div>
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Imagem</span>
+                <input id="imagem" name="imagem" type="file">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Cadastrar
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
+</div>
+
+<div th:replace="fragments/index :: script"></div>
+
+</body>
+</html>

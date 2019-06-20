@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="br" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Listar Pratos</title>
+    <div th:replace="fragments/index :: head"></div>
+</head>
+<body>
+
+<div th:replace="fragments/index :: nav-gerente"></div>
+
+<table class="striped centered">
+    <thead>
+    <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Preço</th>
+        <th scope="col">Imagem</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="prato: ${listaPratos}">
+        <div th:if="${prato.status == 1}">
+            <td scope="row" th:text="${prato.nome}"></td>
+            <td scope="row" th:text="${prato.descricao}"></td>
+            <td scope="row" th:text="${'R$ ' + prato.preco}"></td>
+            <td scope="row"><img height="100" th:src="@{'/images/' + ${prato.nome} + ${prato.idPrato} + '.png'}"
+                                 width="100"></td>
+            <td><a th:href="@{/prato/excluir/{id}(id = ${prato.idPrato})}">
+                <button class="btn" type="button">Excluir <i class="medium material-icons">delete</i></button>
+            </a>
+            </td>
+            <td><a th:href="@{/prato/atualizar/{id}(id = ${prato.idPrato})}">
+                <button class="btn" type="button">Atualizar <i class="medium material-icons">create</i></button>
+            </a>
+            </td>
+        </div>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/prato/cadastrar}">
+    <button class="btn" type="button">Cadastrar <i class="medium material-icons">add_circle</i></button>
+</a>
+
+<div th:replace="fragments/index :: script"></div>
+
+</body>
+</html>

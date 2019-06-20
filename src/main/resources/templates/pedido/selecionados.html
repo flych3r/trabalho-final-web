@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="br" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Carrinho</title>
+    <div th:replace="fragments/index :: head"></div>
+</head>
+<body>
+
+<div th:replace="fragments/index :: nav-cliente"></div>
+
+<table class="striped centered">
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Preco</th>
+        <th>Quantidade</th>
+        <th>Total</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <tr th:each="item: ${session.carrinho}">
+        <td scope="row" th:text="${item.prato.nome}"></td>
+        <td scope="row" th:text="${'R$ ' + item.prato.preco}"></td>
+        <td scope="row" th:text="${item.quantidade}"></td>
+        <td scope="row" th:text="${'R$ ' + item.quantidade * item.preco}"></td>
+        <td><a th:href="@{/pedido/adicionar/{id}(id = ${item.prato.idPrato})}">
+            <button class="btn" type="button"><i class="medium material-icons">exposure_plus_1</i></button>
+        </a>
+            <a th:href="@{/pedido/remover/{id}(id = ${item.prato.idPrato})}">
+                <button class="btn" type="button"><i class="medium material-icons">exposure_neg_1</i></button>
+            </a>
+        </td>
+    <tr/>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td th:text="${'R$ ' + session.total}"></td>
+        <td></td>
+    <tr/>
+</table>
+
+<a th:href="@{/pedido/salvar}">
+    <button class="btn waves-effect waves-light" type="submit">Comprar
+        <i class="material-icons right">attach_money</i>
+    </button>
+</a>
+<div th:replace="fragments/index :: script"></div>
+
+</body>
+</html>
