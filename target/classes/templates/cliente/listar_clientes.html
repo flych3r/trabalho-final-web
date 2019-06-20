@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="br" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Listar Clientes</title>
+    <div th:replace="fragments/index :: head"></div>
+</head>
+<body>
+
+<div th:replace="fragments/index :: nav-gerente"></div>
+
+<table class="striped centered">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Data Nascimento</th>
+        <th scope="col">Endereço</th>
+        <th scope="col">Email</th>
+        <th scope="col">Senha</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cliente: ${listaClientes}">
+        <td scope="row" th:text="${cliente.idCliente}"></td>
+        <td scope="row" th:text="${cliente.nome}"></td>
+        <td scope="row" th:text="${cliente.cpf}"></td>
+        <td scope="row" th:text="${{cliente.dataNascimento}}"></td>
+        <td scope="row" th:text="${cliente.endereco.toString()}"></td>
+        <td scope="row" th:text="${cliente.email}"></td>
+        <td scope="row" th:text="${cliente.senha}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:replace="fragments/index :: head"></div>
+
+</body>
+</html>

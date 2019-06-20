@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="br" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:fragment="head">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <link rel="stylesheet" th:href="@{/css/icon.css}"/>
+        <link rel="stylesheet" th:href="@{/css/materialize.min.css}"/>
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    </div>
+</head>
+<body>
+
+<header th:fragment="nav-gerente">
+    <div>
+        <nav class="nav-fixed">
+            <div class="nav-wrapper">
+                <a class="brand-logo" href="/">Delivery</a>
+                <span th:text="${#authentication.name}"></span>
+                <a class="sidenav-trigger" data-target="mobile-demo-g" href="#"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a th:href="@{/prato/listar_gerente}">Pratos</a></li>
+                    <li><a th:href="@{/cliente/listar}">Clientes</a></li>
+                    <li><a th:href="@{/pedido/listar_pendente}">Pedidos</a></li>
+                    <li><a th:href="@{/logar}">Login</a></li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo-g">
+            <li><a th:href="@{/prato/listar_gerente}">Pratos</a></li>
+            <li><a th:href="@{/cliente/listar}">Clientes</a></li>
+            <li><a th:href="@{/pedido/listar_pendente}">Pedidos</a></li>
+            <li><a th:href="@{/logar}">Login</a></li>
+        </ul>
+
+    </div>
+
+</header>
+
+<header th:fragment="nav-cliente">
+    <div>
+        <nav class="nav-fixed">
+            <div class="nav-wrapper">
+                <a class="brand-logo" href="/">Delivery</a>
+                <a class="sidenav-trigger" data-target="mobile-demo-c" href="#"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a th:href="@{/prato/listar_cliente}">Pratos</a></li>
+                    <li><a th:href="@{/pedido/selecionados}">Carrinho</a></li>
+                    <li><a th:href="@{/pedido/listar}">Pedidos</a></li>
+                    <li sec:authorize="hasRole('USER')"><a th:href="@{/cliente/atualizar}" th:text="${#authentication.name}"></a></li>
+                    <li sec:authorize="!hasAnyRole('USER','ADMIN')"><a th:href="@{/cliente/cadastrar}">Cadastrar</a></li>
+                    <li><a th:href="@{/logar}">Login</a></li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo-c">
+            <li><a th:href="@{/prato/listar_cliente}">Pratos</a></li>
+            <li><a th:href="@{/pedido/selecionados}">Carrinho</a></li>
+            <li><a th:href="@{/pedido/listar}">Pedidos</a></li>
+            <li sec:authorize="hasRole('USER')"><a th:href="@{/cliente/atualizar}" th:text="${#authentication.name}"></a></li>
+            <li sec:authorize="!hasAnyRole('USER','ADMIN')"><a th:href="@{/cliente/cadastrar}">Cadastrar</a></li>
+            <li><a th:href="@{/logar}">Login</a></li>
+        </ul>
+
+    </div>
+</header>
+
+<header th:fragment="nav-geral">
+    <div>
+        <nav class="nav-fixed">
+            <div class="nav-wrapper">
+                <a class="brand-logo" href="/">Delivery</a>
+                <a class="sidenav-trigger" data-target="mobile-demo-g" href="#"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a th:href="@{/prato/listar_gerente}">Gerente</a></li>
+                    <li><a th:href="@{/prato/listar_cliente}">Clientes</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div th:fragment="script">
+    <script th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/materialize.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.mask.min.js}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+        });
+    </script>
+</div>
+
+</body>
+</html>

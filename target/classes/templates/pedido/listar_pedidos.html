@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="br" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Listar Pedidos</title>
+    <div th:replace="fragments/index :: head"></div>
+</head>
+<body>
+
+<div th:replace="fragments/index :: nav-cliente"></div>
+
+<table class="striped centered">
+    <thead>
+    <tr>
+        <th scope="col">Id Pedido</th>
+        <th scope="col">Nome Cliente</th>
+        <th scope="col">Data</th>
+        <th scope="col">Total</th>
+        <th scope="col">Estatus</th>
+        <th scope="col"></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pedido: ${listaPedidos}">
+        <td scope="row" th:text="${pedido.idPedido}"></td>
+        <td scope="row" th:text="${pedido.cliente.nome}"></td>
+        <td scope="row" th:text="${{pedido.dataPedido}}"></td>
+        <td scope="row" th:text="${'R$ ' + pedido.total}"></td>
+        <td scope="row" th:text="${pedido.pendente == 1 ? 'Pendente' : 'Enviado'}"></td>
+        <td><a th:href="@{/item/listar/{id}(id = ${pedido.idPedido})}">
+            <button class="btn" type="button">Itens<i class="medium material-icons">event_note</i></button>
+        </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:replace="fragments/index :: head"></div>
+
+</body>
+</html>
