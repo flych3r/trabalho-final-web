@@ -39,7 +39,7 @@
         <td></td>
         <td></td>
         <td></td>
-        <td th:text="${'R$ ' + session.total}"></td>
+        <td th:if="${session.total != null}" th:text="${'R$ ' + session.total}"></td>
         <td></td>
     <tr/>
 </table>
